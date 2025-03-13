@@ -1,0 +1,42 @@
+{% extends 'journal/navbar.html' %} <!-- extends must always be first -->
+{% load static %}
+
+{% block content %}
+
+    {% for message in messages %}
+
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+            <p id="message-timer" class="alert alert-success float-center text-center message-text"><i class="fa fa-solid fa-check"></i>&nbsp; {{message}}</p>
+
+        {% endif %}
+
+    {% endfor %}
+
+    <br>
+
+    {% for thought in AllThoughts %}
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+        <h3>{{thought.title}}</h3>
+        <br>
+        <p>{{thought.content}}</p>
+        <br>
+        <p class="text-body-secondary">{{thought.date_posted}}</p>
+        <br>
+
+        <a class="btn btn-outline-secondary btn-md w-100 btn-block p-1" href="{% url 'update-thought' thought.id %}">Update</a>
+        <br><br>
+        <a class="btn btn-outline-danger btn-md w-100 btn-block p-1" href="{% url 'delete-thought' thought.id %}">Delete</a>
+
+    </div>
+
+    <br>
+
+    {% endfor %}
+
+<script src="{% static 'js/app.js' %}"></script>
+
+
+{% endblock %}
